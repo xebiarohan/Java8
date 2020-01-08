@@ -1,8 +1,6 @@
 package streams;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StreamsInCollections {
@@ -22,6 +20,8 @@ public class StreamsInCollections {
     //        10
     //        12
 
+   // ***************************************************************************************
+
         // Stream in set
 
         Set<String> set = new HashSet();
@@ -36,5 +36,36 @@ public class StreamsInCollections {
 
         System.out.println(updatedValues);
         // output : [X1, X2, X3]
+
+     // ********************************************************************************************
+
+     //Stream in Map
+
+     Map<Integer,String> map = new HashMap();
+     map.put(1,"Apple");
+     map.put(2,"Mango");
+     map.put(3,"Guava");
+
+     //Stream on map keys
+        map.keySet()
+                .stream()
+                .filter(key -> key%2 == 0)
+                .forEachOrdered(key -> System.out.println(map.get(key)));
+
+     // Stream on map values
+        long fruits = map.values()
+                .stream()
+                .count();
+
+        // Stream on Map entries
+
+        map.entrySet()
+            .stream()
+                .filter(fruit -> fruit.getValue().startsWith("M"))
+                .forEach(System.out::println);
+
+
+
+
     }
 }
