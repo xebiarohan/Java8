@@ -1,8 +1,10 @@
 package streams;
 
+import java.util.Arrays;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class StreamInPrimitiveTypes {
     public static void main(String[] args) {
@@ -27,6 +29,17 @@ public class StreamInPrimitiveTypes {
                 .limit(2)
                 .boxed()
                 .forEach(System.out::println);
+
+        Arrays.stream(new int[] {1, 2, 3})
+                .map(n -> 2 * n + 1)
+                .average()
+                .ifPresent(System.out::println);
+
+        Stream.of("a1", "a2", "a3")
+                .map(s -> s.substring(1))
+                .mapToInt(Integer::parseInt)
+                .max()
+                .ifPresent(System.out::println);
 
 
     }
