@@ -32,6 +32,7 @@ public class StreamInPrimitiveTypes {
 
         Arrays.stream(new int[] {1, 2, 3})
                 .map(n -> 2 * n + 1)
+                .peek(v -> System.out.println(v))
                 .average()
                 .ifPresent(System.out::println);
 
