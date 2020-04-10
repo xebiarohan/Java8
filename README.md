@@ -32,3 +32,16 @@ Java 8 concepts
         Stream<Integer> stream = Optional.of(4).stream();
 
     In Java 9 or() and ifPresentOrElse() method are also introduced
+
+
+2 String Joiner
+    String joiner is used to join multiple strings.
+
+    In this we can pass delimiter, prefix and suffix
+        StringJoiner joiner = new StringJoiner(",", "[", "]");
+
+    We can merge 2 or more string joiners
+       StringJoiner joiner3 =  joiner1.merge(joiner2);
+
+    prefix and suffix will be ignored if they are not same in all the merged
+    joiners in case we join multiple string Joiners.
