@@ -3,11 +3,12 @@ Java 8 concepts
 
 
 ### 1 Optional
-
+  #### Empty Optional value
   We can create empty optional object using empty().
 
         Optional.empty();
 
+  #### of()
   We can use using static method (of) to create Optional objects like
 
         Optional.of(1);
@@ -18,10 +19,12 @@ Java 8 concepts
 
         Optional.of(null);    // NullPointerException
 
+  #### ofNullable()
   We can use ofNullable() method if null value can come for an object
 
         Optional.ofNullable(null);
 
+  #### orElse() and orElseGet()
   Its good to use orElse() or orElseGet() instead of get() because if the value is null
   then get() method will throw NullPointerException even if we used ofNullable.
 
@@ -29,28 +32,33 @@ Java 8 concepts
         d1.orElse(2d);              // it will always compute even if the value is present
         d1.orElseGet(() -> 4d);     // It will only compute the else condition if value is
                                     // not present in d1
-
+  #### isPresent()
   isPresent() is used to check the value is present or not
 
         Optional<List<Integer>> integers = Optional.of(Arrays.asList(1, 2, 3, 4));
         integer.isPresent();        // return true if value is not null
 
+  #### ifPresent()
   ifPresent() takes a supplier, if optional value is present then perform that supplier
 
         integer.ifPresent(x -> System.out.println(x));
 
+  #### orElseThrow()
   orElseThrow() it will throw an exception if optional value is not present
 
             Optional.of(value).orElseThrow(NullPointerException::new);
 
+  #### Intermittent methods
   intermittent method like map, filter etc are also applicable in optional
 
         Optional.of(10).filter(x -> x > 7).isPresent();
 
+  #### Stream of Optional
   stream() of optional value comes from Java9
 
         Stream<Integer> stream = Optional.of(4).stream();
 
+  #### New changes coming in Java 9
   In Java 9 or() and ifPresentOrElse() method are also introduced
 
 
