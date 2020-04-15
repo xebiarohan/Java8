@@ -34,7 +34,7 @@ public class ComputingMap {
 
 
         // compute
-        cityCount.compute("test", (key,value) -> {
+        cityCount.compute("Punjab", (key,value) -> {
             if(value >20) {
                 return value;
             } else {
@@ -58,6 +58,24 @@ public class ComputingMap {
         // getOrDefault
         Integer biharCities = cityCount.getOrDefault("Bihar", 50);
         System.out.println(biharCities);
+
+
+        // mergemap
+        Map<Integer,Integer> map1 = new HashMap<>();
+        map1.put(1,1);
+        map1.put(2,2);
+        map1.put(3,3);
+
+        Map<Integer,Integer> map2 = new HashMap<>();
+        map2.put(4,4);
+        map2.put(5,5);
+        map2.put(1,6);
+
+        map1.forEach(
+                (key, val) -> map2.merge(key, val, (v1, v2) -> v2)
+        );
+
+        map2.forEach((key,value) -> System.out.println("Merge Map "+ key + " : " + value));
     }
 
 

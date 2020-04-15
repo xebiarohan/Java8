@@ -137,8 +137,11 @@ Java 8 concepts
 
         cityCount.getOrDefault("Bihar", 50);
 
+  #### merge
+  takes key, value and BiFunction<? super V, ? super V, ? extends V>
 
-
-
+        map1.forEach(
+                        (key, val) -> map2.merge(key, val, (v1, v2) -> v2)
+                );
 
 
