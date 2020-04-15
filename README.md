@@ -2,7 +2,7 @@
 Java 8 concepts
 
 
-1. Optional
+###1 Optional
 
     We can create empty optional object using Optional.empty().
 
@@ -34,7 +34,7 @@ Java 8 concepts
     In Java 9 or() and ifPresentOrElse() method are also introduced
 
 
-2 String Joiner
+###2 String Joiner
     String joiner is used to join multiple strings.
 
     In this we can pass delimiter, prefix and suffix
@@ -45,3 +45,70 @@ Java 8 concepts
 
     prefix and suffix will be ignored if they are not same in all the merged
     joiners in case we join multiple string Joiners.
+
+
+###3 Operators on Maps
+
+  ####forEach:
+  It will iterate over the map entry set.
+  takes BiConsumer (key, value)
+
+         cityCount.forEach((key,value) -> System.out.println(key + " : " + value));
+
+  ####replaceAll:
+  It will iterate over the entryset and apply bifunction on that
+  takes BiFunction<? super K, ? super V, ? extends V>
+
+         cityCount.replaceAll((key, value) -> {
+                     if (key.length() > 6) {
+                         return value * 3;
+                     }
+                     return value;
+                 });
+
+  ####computeIfAbsent:
+  If the key passed to is not present then it will add that key with value that will be
+  computed from function passed to it.
+  takes key and Function<? super K, ? extends V>
+
+        cityCount.computeIfAbsent("Punjab", x -> 20);
+
+  ####compute
+  It will take the key passed to it and pass the entryset of that key to the BuFunction which we
+  pass as second paramenter and evaluated value will replace the current value in entryset.
+
+  If the key passed to it is not present it will give NullPointerException
+  takes key and BiFunction<? super K, ? super V, ? extends V>
+
+        cityCount.compute("Haryana", (key,value) -> {
+                    if(value >20) {
+                        return value;
+                    } else {
+                        return 22;
+                    }
+                });
+
+  ####computeIfPresent
+  It is same as compute just it will first check the key is present in map or not. If present
+  then only it will compute the BiFunction and change the entrySet in map. So it protects from
+  Null pointer exception./
+  takes key and BiFunction<? super K, ? super V, ? extends V>
+
+        cityCount.computeIfPresent("Punjab",(key,val) -> {
+                    if(val> 20) {
+                        return val;
+                    } else {
+                        return 22;
+                    }
+                });
+
+  ####getOrDefault
+  takes Object key, V defaultValue
+
+        cityCount.getOrDefault("Bihar", 50);
+
+
+
+
+
+
