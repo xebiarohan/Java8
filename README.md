@@ -4,14 +4,19 @@ Java 8 concepts
 
 ### 1 Optional
 
-  We can create empty optional object using Optional.empty().
+  We can create empty optional object using empty().
 
-  We can use using static method (of) to create Optional objects like :
+        Optional.empty();
+
+  We can use using static method (of) to create Optional objects like
+
         Optional.of(1);
         Optional.of("alpha");
         Optional.of(employee);
 
-  We cannot pass null value in of method otherwise it will give nullPointerException
+  We cannot pass null value in of() method otherwise it will give NullPointerException
+
+        Optional.of(null);    // NullPointerException
 
   We can use ofNullable() method if null value can come for an object
 
@@ -20,15 +25,27 @@ Java 8 concepts
   Its good to use orElse() or orElseGet() instead of get() because if the value is null
   then get() method will throw NullPointerException even if we used ofNullable.
 
+        Optional<Double> d1 = Optional.ofNullable(d1);
+        d1.orElse(2d);              // it will always compute even if the value is present
+        d1.orElseGet(() -> 4d);     // It will only compute the else condition if value is
+                                    // not present in d1
+
   isPresent() is used to check the value is present or not
 
+        Optional<List<Integer>> integers = Optional.of(Arrays.asList(1, 2, 3, 4));
+        integer.isPresent();        // return true if value is not null
+
   ifPresent() takes a supplier, if optional value is present then perform that supplier
+
+        integer.ifPresent(x -> System.out.println(x));
 
   orElseThrow() it will throw an exception if optional value is not present
 
             Optional.of(value).orElseThrow(NullPointerException::new);
 
   intermittent method like map, filter etc are also applicable in optional
+
+        Optional.of(10).filter(x -> x > 7).isPresent();
 
   stream() of optional value comes from Java9
 
