@@ -145,3 +145,103 @@ Java 8 concepts
                 );
 
 
+### Functional Interface
+Java 8 introduced @FunctionalInterface, an interface that has exactly one abstract method.
+
+#### Unary Operator
+UnaryOperator is a functional interface and it extends Function.The UnaryOperator takes one argument,
+and returns a result of the same type of its arguments.
+
+
+        UnaryOperator<String> uppercase = x -> x.toUpperCase();
+        UnaryOperator<String> reverse = x -> new StringBuilder(x).reverse().toString();
+
+We can work on single operator like
+
+        String alpha = uppercase.apply("alpha");    // ALPHA
+
+we can also merge 2 or more operator and can apply on a single value.
+
+        String beta = uppercase.andThen(reverse).apply("beta");    // ATEB
+
+#### Binary Operator
+In Java 8, BinaryOperator is a functional interface and it extends BiFunction.The BinaryOperator takes two
+arguments of the same type and returns a result of the same type of its arguments.
+
+        BinaryOperator<Integer> sum = (x1,x2) -> x1+x2;
+        sum.apply(2,5);
+
+#### Function
+In Java 8, Function is a functional interface; it takes an argument (object of type T) and returns an object
+(object of type R). The argument and output can be a different type.
+
+        Function<String,Integer> length = String::length;
+        Function<Integer,Integer> square = x -> x*x;
+
+In this also we can using chaining.
+
+        length.andThen(square).apply("alpha");
+
+#### BiFunction
+In Java 8, BiFunction is a functional interface that takes 2 argument and return a value.
+
+        BiFunction<String,String,Integer> totalLength = (x1,x2) -> x1.length() + x2.length();
+
+        totalLength.apply("alpha","beta");
+
+
+#### Predicate
+In Java 8, Predicate is a functional interface, which accepts an argument and returns a boolean.
+Usually, it used to apply in a filter for a collection of objects.
+
+        Predicate<String> isLengthValid = str -> str.length() > 4;
+        Predicate<String> isValidPrefix = str -> str.startsWith("A");
+
+        isLengthValid.test("Alpha");   // true
+
+        isLengthValid.test("beta");    // false
+
+negate() will reverse the predicate response
+
+        isLengthValid.negate().test("beta");   // true
+
+We can chain predicate in 3 ways : Predicate.and(), Predicate.or()
+
+For "Predicate.and()" both the predicate neads to return true for true value.
+
+        isLengthValid.and(isValidPrefix).test("Alpha");
+
+For "Predicate.or()" if any one of the predicate returns true then the expression will return true
+
+        isLengthValid.or(isValidPrefix).test("beta");
+
+#### BiPredicate
+In Java 8, BiPredicate is a functional interface, which accepts two arguments and returns a boolean, basically
+this BiPredicate is same with the Predicate, instead, it takes 2 arguments for the test
+
+        BiPredicate<String, String> validValues = (str1,str2) -> str1.length() >= 4 && str2.length() >=4;
+
+        validValues.test("Alpha","beta");   // true
+
+#### Consumer
+In Java 8, Consumer is a functional interface; it takes an argument and returns nothing.
+
+        Consumer<String> print = System.out::println;
+
+        print.accept("java");
+
+We can  chain consumer as well
+
+
+#### BiConsumer
+In Java 8, BiConsumer is a functional interface; it takes two arguments and returns nothing.
+
+        BiConsumer<Integer, Integer> addTwo = (x, y) -> System.out.println(x + y);
+        addTwo.accept(1, 2);    // 3
+
+#### Supplier
+In Java 8, Supplier is a functional interface; it takes no arguments and returns a result.
+
+        Supplier<LocalDateTime> s = () -> LocalDateTime.now();
+        LocalDateTime time = s.get();
+
