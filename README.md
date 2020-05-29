@@ -5,59 +5,65 @@ Java 8 concepts
 ### 1 Optional
   #### Empty Optional value
   We can create empty optional object using empty().
-
+```java
         Optional.empty();
-
+```
   #### of()
   We can use using static method (of) to create Optional objects like
-
+```java
         Optional.of(1);
         Optional.of("alpha");
         Optional.of(employee);
-
+```
   We cannot pass null value in of() method otherwise it will give NullPointerException
-
+```java
         Optional.of(null);    // NullPointerException
-
+```
   #### ofNullable()
   We can use ofNullable() method if null value can come for an object
-
+```java
         Optional.ofNullable(null);
+```
 
   #### orElse() and orElseGet()
   Its good to use orElse() or orElseGet() instead of get() because if the value is null
   then get() method will throw NullPointerException even if we used ofNullable.
-
+```java
         Optional<Double> d1 = Optional.ofNullable(d1);
         d1.orElse(2d);              // it will always compute even if the value is present
         d1.orElseGet(() -> 4d);     // It will only compute the else condition if value is
                                     // not present in d1
+```
+
   #### isPresent()
   isPresent() is used to check the value is present or not
-
+```java
         Optional<List<Integer>> integers = Optional.of(Arrays.asList(1, 2, 3, 4));
         integer.isPresent();        // return true if value is not null
+```
 
   #### ifPresent()
   ifPresent() takes a supplier, if optional value is present then perform that supplier
-
+```java
         integer.ifPresent(x -> System.out.println(x));
-
+```
   #### orElseThrow()
   orElseThrow() it will throw an exception if optional value is not present
-
+```java
             Optional.of(value).orElseThrow(NullPointerException::new);
+```
 
   #### Intermittent methods
   intermittent method like map, filter etc are also applicable in optional
-
+```java
         Optional.of(10).filter(x -> x > 7).isPresent();
+```
 
   #### Stream of Optional
   stream() of optional value comes from Java9
-
+```java
         Stream<Integer> stream = Optional.of(4).stream();
-
+```
   #### New changes coming in Java 9
   In Java 9 or() and ifPresentOrElse() method are also introduced
 
@@ -66,13 +72,13 @@ Java 8 concepts
   String joiner is used to join multiple strings.
 
   In this we can pass delimiter, prefix and suffix
-
+```java
         StringJoiner joiner = new StringJoiner(",", "[", "]");
-
+```
   We can merge 2 or more string joiners
-
+```java
        StringJoiner joiner3 =  joiner1.merge(joiner2);
-
+```
   prefix and suffix will be ignored if they are not same in all the merged
   joiners in case we join multiple string Joiners.
 
@@ -82,27 +88,28 @@ Java 8 concepts
   #### forEach:
   It will iterate over the map entry set.
   takes BiConsumer (key, value)
-
+```java
          cityCount.forEach((key,value) -> System.out.println(key + " : " + value));
-
+```
   #### replaceAll:
   It will iterate over the entryset and apply bifunction on that
   takes BiFunction<? super K, ? super V, ? extends V>
-
+```java
          cityCount.replaceAll((key, value) -> {
                      if (key.length() > 6) {
                          return value * 3;
                      }
                      return value;
                  });
+```
 
   #### computeIfAbsent:
   If the key passed to is not present then it will add that key with value that will be
   computed from function passed to it.
   takes key and Function<? super K, ? extends V>
-
+```java
         cityCount.computeIfAbsent("Punjab", x -> 20);
-
+```
   #### compute
   It will take the key passed to it and pass the entryset of that key to the BuFunction which we
   pass as second paramenter and evaluated value will replace the current value in entryset.
