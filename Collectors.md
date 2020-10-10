@@ -147,6 +147,80 @@ Map<String,Integer>map = strings.stream().collect(Collectors.toMap(Function.iden
 
 Here we created a map with list values as keys and the number of occurance of the value in the list as value.
 
-### 
+### Handling duplicates entries of list while creating map
 
+A list can contain duplicate values, So If we want to create a map out of list and want to use list values as keys of maps then we need to resolve the
+duplicate keys. As a map only contains unique keys, we can use comparators to do that
 
+```java
+strings.stream().collect(Collectors.toMap(Function.identity(),String::length,(i1,i2) -> i1));
+```
+
+Here Function.identity() is pointing to the list value and i1, i2 are the values of the duplicate keys. We can keep a single value so, here we are selecting i1 but
+we can compute anything using these two values like adding them, comparing and selection the greater one etc.
+
+### Summing Integers
+Finding the sum of all the integer values present in the list.Its not always the sum of the initial collection which we are using like in the below example we are
+using the list of strings and first we are converting each string into an integer that is equal to its length and then adding all the lengths.
+
+```java
+Integer collect4 = strings.stream().collect(Collectors.summingInt(String::length));
+```
+
+or direct list value sum
+
+```java
+integers.stream().collect(Collectors.summingInt(x -> x));
+```
+
+### Summing Doubles
+Similar to summing integers, just it is used for double values
+
+```java
+doubleValues.stream().collect(Collectors.summingDouble(x ->x));
+```
+
+### Summing Long
+Same as the first two, used for adding long or int values. We can use summinglong() for int values as well but we cannot use summingInt() for long values.
+It is based on the concept of typecasting, which data type can be cast in which one.
+
+```java
+longValues.stream().collect(Collectors.summingDouble(x ->x));
+```
+
+### Summarizing Integer
+It gives all the major arthmatic operation values of the values present in the collection like average of all values, minimum value, maximum values,
+count and sum of all values.
+
+```java
+IntegerSummaryStatistics collect5 = integers.stream().collect(Collectors.summarizingDouble(x -> x ));
+```
+
+now we can extracts different values using getter methods like:
+
+```java
+collect5.getAverage();
+collect5.getMax();
+collect5.getMin();
+collect5.getCount();
+collect5.getSum();
+```
+
+### GroupingBy method
+
+GroupingBy is a advance method to create a map out of any other collection. It itself is a very vast topic which we will cover in next blog. SO here just for the
+completion lets see few examples
+
+```java
+Map<Integer, List<String>> collect = strings.stream().collect(Collectors.groupingBy(String::length));
+```
+
+It will make the string lenght as key and list of strings of that length as value.
+
+```java
+        Map<Integer, LinkedList<String>> collect1 = strings.stream().collect(Collectors.groupingBy(String::length, Collectors.toCollection(LinkedList::new)));
+```
+
+Here we specified the type of list we want in the map (linkedlist).
+
+For more information about the Collectors class please refer to the official documentation : https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html
